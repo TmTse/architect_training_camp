@@ -1,4 +1,4 @@
-package architect_training_camp.consistent_hash;
+package consistent_hash;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 public class Client {
     public static void main(String[] args) {
         //虚拟节点数量
-        int vnodeCount = 400;
+        int vnodeCount = 10;
         //物理节点数量
         int nodeCount = 10;
         //插入数据总量

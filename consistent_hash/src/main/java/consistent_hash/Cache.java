@@ -1,4 +1,4 @@
-package architect_training_camp.consistent_hash;
+package consistent_hash;
 
 /**
  * 缓存接口
