@@ -13,6 +13,7 @@ public class Client {
     private static final int total;
     private static final int concurrent;
     private static final ThreadPoolExecutor tpe;
+    private static final int MAX_QUEUE_SIZE=5000;
 
     static {
         //load config
@@ -41,9 +42,8 @@ public class Client {
             futures.add(future);
 
             //forbid insert queue too large to out of memory
-            while (tpe.getQueue().size()>(total*75/100)){
+            while (tpe.getQueue().size()>MAX_QUEUE_SIZE){
                 try {
-                    System.out.println("inner");
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
