@@ -13,7 +13,7 @@ public class Client {
     private static final int total;
     private static final int concurrent;
     private static final ThreadPoolExecutor tpe;
-    private static final int MAX_QUEUE_SIZE=5000;
+    private static final int MAX_QUEUE_SIZE;
 
     static {
         //load config
@@ -24,6 +24,8 @@ public class Client {
         //init thread pool
         executorService = Executors.newFixedThreadPool(concurrent);
         tpe=(ThreadPoolExecutor)executorService;
+        MAX_QUEUE_SIZE=Integer.valueOf(config.getProperty("MAX_QUEUE_SIZE"));
+
     }
 
     public static void main(String[] args) {
