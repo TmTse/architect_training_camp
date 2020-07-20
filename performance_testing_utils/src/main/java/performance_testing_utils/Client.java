@@ -7,11 +7,12 @@ import java.util.Properties;
 import java.util.concurrent.*;
 
 public class Client {
-    private static final ExecutorService executorService;
+    private static ExecutorService executorService;
     private static final Properties config;
     private static final String url;
     private static final int total;
     private static final int concurrent;
+    private static final ThreadPoolExecutor tpe;
 
     static {
         //load config
@@ -21,6 +22,7 @@ public class Client {
         concurrent = Integer.valueOf(config.getProperty("concurrentNumber"));
         //init thread pool
         executorService = Executors.newFixedThreadPool(concurrent);
+        tpe=(ThreadPoolExecutor)executorService;
     }
 
     public static void main(String[] args) {
@@ -37,6 +39,16 @@ public class Client {
         for (int i = 0; i < total; i++) {
             Future<Response> future = executorService.submit(() -> HttpClientFactory.getHttpClient().get(url, null));
             futures.add(future);
+
+            //forbid insert queue too large to out of memory
+            while (tpe.getQueue().size()>(total*75/100)){
+                try {
+                    System.out.println("inner");
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         executorService.shutdown();
 
