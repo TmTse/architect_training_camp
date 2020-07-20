@@ -53,13 +53,14 @@ public class Client {
             }
         }
 
-
+        System.out.println(String.format("访问地址：%s",url));
         System.out.println(String.format("并发数：%s，总访问次数：%s:", concurrent, total));
-        System.out.println(String.format("平均响应时间：%s", totalTime / total));
+        System.out.println(String.format("平均响应时间：%sms", totalTime / total));
         Arrays.sort(responseTimes);
         int offset = 95;
         int index = (total * offset / 100 - 1) < 0 ? 0 : total * offset / 100 - 1;
-        System.out.println(String.format("%s%%响应时间：%s", offset, responseTimes[index]));
+        System.out.println(String.format("%s%%响应时间：%sms", offset, responseTimes[index]));
+        System.out.println(String.format("吞吐量：%s/s",1000/(totalTime / total)*concurrent));
 
 
     }
