@@ -6,7 +6,7 @@ import java.util.List;
 public class Client {
     public static void main(String[] args) {
         //虚拟节点数量
-        int vnodeCount = 10;
+        int vnodeCount =200;
         //物理节点数量
         int nodeCount = 10;
         //插入数据总量
